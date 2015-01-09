@@ -1,19 +1,19 @@
 source("finance.R")
 
 test_aggregate_by_month <- function() {
-  Date <- c(as.Date("2014-03-01"), as.Date("2014-03-02"), as.Date("2014-04-01"), as.Date("2014-05-01"))
+  Date <- c(as.Date("2014-03-01"), as.Date("2014-03-02"), as.Date("2014-05-01"), as.Date("2014-06-01"))
   Value <-c(50, 100, 200, 300)
   data <- data.frame(Date, Value)
   
-  aggregated <- aggregate_by_month(data)
+  aggregated <- aggregate_by_month(data, c("2014-03", "2014-04", "2014-05"))
   
-  checkEquals(nrow(aggregated), 3)
+  checkEquals(nrow(aggregated), 3) # 2014-06 is absent
   checkEquals(aggregated[1,"Month"], "2014-03")
   checkEquals(aggregated[1,"Value"], 150)
   checkEquals(aggregated[2,"Month"], "2014-04")
-  checkEquals(aggregated[2,"Value"], 200)
+  checkEquals(aggregated[2,"Value"], 0)
   checkEquals(aggregated[3,"Month"], "2014-05")
-  checkEquals(aggregated[3,"Value"], 300)
+  checkEquals(aggregated[3,"Value"], 200)
 }
 
 test_categories <- function() {

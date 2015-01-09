@@ -3,3 +3,7 @@ aggregate_by_month <- function(data) {
   names(aggregated) <- c("Month", "Value")
   aggregated
 }
+
+categories <- function(data) {
+  sort(sapply(unique(data$Category), as.character))
+}

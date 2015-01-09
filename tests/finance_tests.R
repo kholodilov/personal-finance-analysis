@@ -15,3 +15,12 @@ test_aggregate_by_month <- function() {
   checkEquals(aggregated[3,"Month"], "2014-05")
   checkEquals(aggregated[3,"Value"], 300)
 }
+
+test_categories <- function() {
+  Category <- c("c1", "c2", "c3", "c2", "c3", "c0")
+  data <- data.frame(Category)
+  
+  categories <- categories(data)
+  
+  checkEquals(categories, c("c0", "c1", "c2", "c3"))
+}

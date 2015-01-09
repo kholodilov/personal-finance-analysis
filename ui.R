@@ -15,7 +15,7 @@ shinyUI(
       # Define the sidebar with one input
       sidebarPanel(
         selectInput("category", "Category:", 
-                    choices=c("test1", "test2"))
+                    choices=expense_categories)
       ),
       
       # Create a spot for the barplot

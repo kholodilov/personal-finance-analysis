@@ -7,3 +7,7 @@ aggregate_by_month <- function(data) {
 categories <- function(data) {
   sort(sapply(unique(data$Category), as.character))
 }
+
+filter_by_category <- function(data, category) {
+  subset(data, Category == category)
+}

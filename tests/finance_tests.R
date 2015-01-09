@@ -24,3 +24,18 @@ test_categories <- function() {
   
   checkEquals(categories, c("c0", "c1", "c2", "c3"))
 }
+
+test_filter_by_category <- function() {
+
+  Category <- c("c1", "c2", "c3", "c2")
+  Value    <- c(50,   100,  200,  300)
+  data <- data.frame(Category, Value)
+  
+  filtered <- filter_by_category(data, "c2")
+  
+  checkEquals(nrow(filtered), 2)
+  checkEquals(as.character(filtered[1,"Category"]), "c2")
+  checkEquals(filtered[1,"Value"], 100)
+  checkEquals(as.character(filtered[2,"Category"]), "c2")
+  checkEquals(filtered[2,"Value"], 300)
+}

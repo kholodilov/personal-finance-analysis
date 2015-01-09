@@ -7,13 +7,14 @@ shinyUI(
   fluidPage(    
     
     # Give the page a title
-    titlePanel("Personal finance analysis"),
+    titlePanel("Personal finance reports"),
     
     # Generate a row with a sidebar
     sidebarLayout(      
       
-      # Define the sidebar with one input
       sidebarPanel(
+        checkboxInput("all_categories", "All categories",
+                      value = TRUE),
         selectInput("category", "Category:", 
                     choices=expense_categories)
       ),

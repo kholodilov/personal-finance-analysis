@@ -6,8 +6,9 @@ shinyServer(function(input, output) {
   # Fill in the spot we created for a plot
   output$expensesPlot <- renderPlot({
     
-    expenses_in_category <- filter_by_category(spendee_data$expenses, input$category)
-    expenses_by_month <- aggregate_by_month(expenses_in_category, selected_months)
+    expenses <- if (input$all_categories) { spendee_data$expenses }
+                else { filter_by_category(spendee_data$expenses, input$category) }
+    expenses_by_month <- aggregate_by_month(expenses, selected_months)
     
     # Render a barplot
     barplot(expenses_by_month$Value,

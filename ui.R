@@ -13,15 +13,21 @@ shinyUI(
     sidebarLayout(      
       
       sidebarPanel(
-        checkboxInput("all_categories", "All categories",
+        checkboxInput("all_categories", "All expense categories",
                       value = TRUE),
-        selectInput("category", "Category:", 
-                    choices=expense_categories)
+        selectInput("category", "Expense category:", 
+                    choices=expense_categories),
+        checkboxInput("show_savings", "Savings",
+                      value = FALSE),
+        checkboxInput("show_incomes", "Incomes",
+                      value = FALSE)        
       ),
       
       # Create a spot for the barplot
       mainPanel(
-        plotOutput("expensesPlot")  
+        plotOutput("expensesPlot"),
+        plotOutput("savingsPlot"),
+        plotOutput("incomesPlot")
       )
       
     )

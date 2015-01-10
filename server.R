@@ -1,21 +1,30 @@
 library(shiny)
 
-# Define a server for the Shiny app
 shinyServer(function(input, output) {
   
-  # Fill in the spot we created for a plot
   output$expensesPlot <- renderPlot({
     
     expenses <- if (input$all_categories) { spendee_data$expenses }
                 else { filter_by_category(spendee_data$expenses, input$category) }
     expenses_by_month <- aggregate_by_month(expenses, selected_months)
     
-    # Render a barplot
-    barplot(expenses_by_month$Value,
-            names.arg = expenses_by_month$Month,
-            main="Expenses by month",
-            ylab="Expenses",
-            xlab="Month")
-  })
+    output <- rbind(expenses_by_month$Value)
+    if (input$show_incomes) {
+      incomes_by_month <- aggregate_by_month(spendee_data$incomes, selected_months)
+      output <- rbind(incomes_by_month$Value, output)
+    }
 
+    if (input$show_savings) {
+      savings_by_month <- aggregate_by_month(spendee_data$savings, selected_months)
+      output <- rbind(output, savings_by_month$Value)
+    }
+    
+    barplot(output,
+            names.arg = selected_months,
+            main="Value by month",
+            ylab="Value",
+            xlab="Month",
+            beside=TRUE)
+  })
+  
 })
